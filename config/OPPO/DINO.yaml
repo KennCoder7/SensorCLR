@@ -1,0 +1,51 @@
+work_dir: /data/wangkun/project/work_dir/SensorsHAR/OPPO/dino-seed-2
+# feeder
+feeder: feeder.feeder.Feeder_CL
+pretrain_feeder_args:
+  data_dir: '/data/wangkun/project/datasets/OpportunityUCIDataset/np/'
+  dataset: 'OPPO'
+  mode: train
+  seq_len: 128
+  cl_data: True
+  aug: 'PRJS'
+
+train_feeder_args:
+  data_dir: '/data/wangkun/project/datasets/OpportunityUCIDataset/np/'
+  dataset: 'OPPO'
+  mode: train
+  seq_len: 128
+
+test_feeder_args:
+  data_dir: '/data/wangkun/project/datasets/OpportunityUCIDataset/np/'
+  dataset: 'OPPO'
+  mode: test
+  seq_len: 128
+
+
+# model
+model: net.DINO.DINO
+model_args:
+  base_encoder: net.SensorCNN.CNN_OPPO
+  num_classes: 6
+  ema_momentum: 0.996
+  out_dim: 65536
+
+
+weight_decay: 0.0001
+base_lr: 0.1
+optimizer: 'SGD'
+lr_decay_type: 'cosine'
+end_cosine_lr: 0.0001
+device: [0]
+batch_size: 512
+test_batch_size: 512
+num_epoch: 500
+pretrain_epoch: 300
+#num_epoch: 400
+#pretrain_epoch: 0
+warmup_epoch: 10
+seed: 2
+eval_interval: 1000
+save_interval: 100
+bool_save_model: False
+bool_save_checkpoint: False

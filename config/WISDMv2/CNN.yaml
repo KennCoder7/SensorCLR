@@ -1,0 +1,44 @@
+work_dir: /data/wangkun/project/work_dir/SensorsHAR/WISDMv2/cnn-exp1
+
+# feeder
+feeder: feeder.feeder.Feeder
+train_feeder_args:
+  data_dir: '/data/wangkun/project/datasets/WISDMv2_data/np/'
+  dataset: 'WISDMv1'
+  mode: train
+  seq_len: 128
+  normalization: True
+
+test_feeder_args:
+  data_dir: '/data/wangkun/project/datasets/WISDMv2_data/np/'
+  dataset: 'WISDMv1'
+  mode: test
+  seq_len: 128
+  normalization: True
+
+
+# model
+model: net.cnn.CNN
+model_args:
+  input_channel: 1
+  num_classes: 6
+  freeze: False
+  num_axis: 3
+#  mini: True
+
+
+weight_decay: 0.0001
+base_lr: 0.01
+optimizer: 'SGD'
+lr_decay_type: 'cosine'
+end_cosine_lr: 0.0001
+device: [0]
+batch_size: 512
+test_batch_size: 512
+num_epoch: 200
+warmup_epoch: 10
+seed: -1
+eval_interval: 20
+save_interval: 100
+bool_save_model: False
+bool_save_checkpoint: False
